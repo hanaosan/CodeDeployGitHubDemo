@@ -24,8 +24,8 @@ jobs:
         role-to-assume: 'arn:aws:iam::156844448891:role/oicd-githubactions-role'
 
     - name: Deploy to AWS CodeDeploy
-      uses: aws-actions/aws-codedeploy-github-actions@v1.0.5
-      with:
-        application-name: CodeDeployGitHubDemo-App
-        deployment-group: CodeDeployGitHubDemo-DepGrp
-        deployment-config: CodeDeployDefault.AllAtOnce
+      run: |
+        aws deploy create-deployment \
+        --application-name CodeDeployGitHubDemo-App \
+        --deployment-group-name CodeDeployGitHubDemo-DepGrp \
+        --github-location repository=hanaosan/CodeDeployGitHubDemo,commitId=${{ github.sha }}
